@@ -241,7 +241,7 @@ func (r *ExecResource) executeCommand(ctx context.Context, data *ExecResourceMod
 
 	for result := range resultChan {
 		if result.Error != "" {
-			return stdoutBuilder.String(), stderrBuilder.String(), result.ExitCode, fmt.Errorf(result.Error)
+			return stdoutBuilder.String(), stderrBuilder.String(), result.ExitCode, fmt.Errorf("exec error: %s", result.Error)
 		}
 		if result.Stdout != "" {
 			stdoutBuilder.WriteString(result.Stdout)

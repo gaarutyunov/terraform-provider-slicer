@@ -164,7 +164,7 @@ func ExtractTarStream(ctx context.Context, r io.Reader, extractDir string, uid, 
 				os.Chtimes(target, header.ModTime, header.ModTime)
 			}
 
-		case tar.TypeReg, tar.TypeRegA:
+		case tar.TypeReg:
 			// Create parent directories
 			parentDir := filepath.Dir(target)
 			if !madeDir[parentDir] {

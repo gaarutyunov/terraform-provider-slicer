@@ -8,7 +8,6 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
@@ -284,12 +283,4 @@ func (r *FileResource) copyFile(ctx context.Context, data *FileResourceModel) (s
 	})
 
 	return contentHash, nil
-}
-
-// getAbsPath returns the absolute path, handling relative paths
-func getAbsPath(p string) (string, error) {
-	if filepath.IsAbs(p) {
-		return p, nil
-	}
-	return filepath.Abs(p)
 }
