@@ -20,5 +20,11 @@ project {
 
     # GoReleaser tooling configuration
     ".goreleaser.yml",
+
+    # Slicer SDK (vendored, separate copyright)
+    "internal/slicer/**",
+
+    # Local test files
+    "test-local/**",
   ]
 }
