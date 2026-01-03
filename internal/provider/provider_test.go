@@ -33,7 +33,7 @@ func testAccPreCheck(t *testing.T) {
 	// function.
 }
 
-// Ensure test infrastructure is used
+// Ensure test infrastructure is used.
 var (
 	_ = testAccProtoV6ProviderFactories
 	_ = testAccProtoV6ProviderFactoriesWithEcho

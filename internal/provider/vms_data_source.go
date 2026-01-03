@@ -9,12 +9,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gaarutyunov/terraform-provider-slicer/internal/slicer"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
-	"github.com/gaarutyunov/terraform-provider-slicer/internal/slicer"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -31,8 +31,8 @@ type VMsDataSource struct {
 
 // VMsDataSourceModel describes the data source data model.
 type VMsDataSourceModel struct {
-	Filter types.List `tfsdk:"filter"`
-	VMs    types.List `tfsdk:"vms"`
+	Filter     types.List  `tfsdk:"filter"`
+	VMs        types.List  `tfsdk:"vms"`
 	TotalCount types.Int64 `tfsdk:"total_count"`
 }
 

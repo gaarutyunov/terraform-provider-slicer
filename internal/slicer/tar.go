@@ -154,14 +154,14 @@ func ExtractTarStream(ctx context.Context, r io.Reader, extractDir string, uid, 
 				return fmt.Errorf("failed to create directory %s: %w", target, err)
 			}
 			madeDir[target] = true
-			// Set ownership if requested (only on Linux, skipped on Windows)
-			// Note: We don't validate uid/gid ranges - the OS will reject invalid values
+			// Set ownership if requested (only on Linux, skipped on Windows).
+			// Note: We don't validate uid/gid ranges - the OS will reject invalid values.
 			if uid > 0 || gid > 0 {
-				os.Chown(target, int(uid), int(gid)) // Error ignored for Windows compatibility
+				_ = os.Chown(target, int(uid), int(gid)) // Error ignored for Windows compatibility
 			}
-			// Preserve mtime
+			// Preserve mtime.
 			if !header.ModTime.IsZero() {
-				os.Chtimes(target, header.ModTime, header.ModTime)
+				_ = os.Chtimes(target, header.ModTime, header.ModTime)
 			}
 
 		case tar.TypeReg:
@@ -195,20 +195,20 @@ func ExtractTarStream(ctx context.Context, r io.Reader, extractDir string, uid, 
 				return fmt.Errorf("only wrote %d bytes to %s; expected %d", n, target, header.Size)
 			}
 
-			// Set permissions (in case umask modified them)
-			// Note: Permissions are already set when opening the file, this ensures umask didn't modify them
-			os.Chmod(target, mode)
+			// Set permissions (in case umask modified them).
+			// Note: Permissions are already set when opening the file, this ensures umask didn't modify them.
+			_ = os.Chmod(target, mode)
 
-			// Set ownership if requested (only on Linux, skipped on Windows)
-			// Note: We only chown if explicitly requested (uid/gid != 0) to avoid overhead on large archives
-			// Note: We don't validate uid/gid ranges - the OS will reject invalid values
+			// Set ownership if requested (only on Linux, skipped on Windows).
+			// Note: We only chown if explicitly requested (uid/gid != 0) to avoid overhead on large archives.
+			// Note: We don't validate uid/gid ranges - the OS will reject invalid values.
 			if uid > 0 || gid > 0 {
-				os.Chown(target, int(uid), int(gid)) // Error ignored for Windows compatibility
+				_ = os.Chown(target, int(uid), int(gid)) // Error ignored for Windows compatibility
 			}
 
-			// Preserve mtime
+			// Preserve mtime.
 			if !header.ModTime.IsZero() {
-				os.Chtimes(target, header.ModTime, header.ModTime)
+				_ = os.Chtimes(target, header.ModTime, header.ModTime)
 			}
 
 		default:

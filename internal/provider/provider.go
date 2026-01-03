@@ -10,6 +10,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/gaarutyunov/terraform-provider-slicer/internal/slicer"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
@@ -17,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
-	"github.com/gaarutyunov/terraform-provider-slicer/internal/slicer"
 )
 
 // Ensure SlicerProvider satisfies various provider interfaces.

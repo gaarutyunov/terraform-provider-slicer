@@ -17,7 +17,7 @@ type SlicerNode struct {
 	Tags      []string  `json:"tags,omitempty"`
 }
 
-// SlicerCreateNodeRequest contains parameters for creating a node
+// SlicerCreateNodeRequest contains parameters for creating a node.
 type SlicerCreateNodeRequest struct {
 	RamBytes   int64    `json:"ram_bytes,omitempty"` // RAM size in bytes (must not exceed host group limit)
 	CPUs       int      `json:"cpus,omitempty"`      // Number of CPUs (must not exceed host group limit)
@@ -32,12 +32,12 @@ type SlicerCreateNodeRequest struct {
 	Secrets    []string `json:"secrets,omitempty"`
 }
 
-// MB converts megabytes to bytes
+// MiB converts megabytes to bytes.
 func MiB(mb int64) int64 {
 	return mb * 1024 * 1024
 }
 
-// GB converts gigabytes to bytes
+// GiB converts gigabytes to bytes.
 func GiB(gb int64) int64 {
 	return gb * 1024 * 1024 * 1024
 }
@@ -94,13 +94,13 @@ type SlicerExecRequest struct {
 	Permissions string   `json:"permissions,omitempty"`
 }
 
-// SlicerCpRequest contains parameters for copying files to/from a VM
+// SlicerCpRequest contains parameters for copying files to/from a VM.
 type SlicerCpRequest struct {
 	VM   string // VM name
 	Path string // Path on the VM
 }
 
-// SlicerNodeStat represents stats for a VM node
+// SlicerNodeStat represents stats for a VM node.
 type SlicerNodeStat struct {
 	Hostname  string          `json:"hostname"`
 	IP        string          `json:"ip"`
@@ -109,7 +109,7 @@ type SlicerNodeStat struct {
 	Error     string          `json:"error"`
 }
 
-// SlicerSnapshot represents a snapshot of VM metrics
+// SlicerSnapshot represents a snapshot of VM metrics.
 type SlicerSnapshot struct {
 	Hostname             string    `json:"hostname"`
 	Arch                 string    `json:"arch"`
@@ -137,14 +137,14 @@ type SlicerSnapshot struct {
 	DiskSpaceUsedPercent float64   `json:"diskSpaceUsedPercent"`
 }
 
-// SlicerLogsResponse represents the response from the logs endpoint
+// SlicerLogsResponse represents the response from the logs endpoint.
 type SlicerLogsResponse struct {
 	Hostname string `json:"hostname"`
 	Lines    int    `json:"lines"`
 	Content  string `json:"content"`
 }
 
-// SlicerDeleteResponse represents the response from the delete endpoint
+// SlicerDeleteResponse represents the response from the delete endpoint.
 type SlicerDeleteResponse struct {
 	Message     string `json:"message"`
 	DiskRemoved string `json:"disk_removed"`

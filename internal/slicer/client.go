@@ -23,7 +23,7 @@ var (
 	ErrSecretExists = errors.New("secret already exists")
 )
 
-// SlicerClient handles all HTTP communication with the Slicer API
+// SlicerClient handles all HTTP communication with the Slicer API.
 type SlicerClient struct {
 	httpClient *http.Client
 	baseURL    string
@@ -31,7 +31,7 @@ type SlicerClient struct {
 	userAgent  string
 }
 
-// NewSlicerClient creates a new Slicer API client
+// NewSlicerClient creates a new Slicer API client.
 func NewSlicerClient(baseURL, token string, userAgent string, httpClient *http.Client) *SlicerClient {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
@@ -44,13 +44,13 @@ func NewSlicerClient(baseURL, token string, userAgent string, httpClient *http.C
 	}
 }
 
-// makeJSONRequest creates and executes an HTTP request with proper authentication
+// makeJSONRequest creates and executes an HTTP request with proper authentication.
 func (c *SlicerClient) makeJSONRequest(method, endpoint string, body interface{}) (*http.Response, error) {
 	ctx := context.Background()
 	return c.makeJSONRequestWithContext(ctx, method, endpoint, body)
 }
 
-// makeJSONRequest creates and executes an HTTP request with proper authentication
+// makeJSONRequestWithContext creates and executes an HTTP request with proper authentication.
 func (c *SlicerClient) makeJSONRequestWithContext(ctx context.Context, method, endpoint string, body interface{}) (*http.Response, error) {
 	u, err := url.Parse(c.baseURL)
 	if err != nil {
@@ -86,7 +86,7 @@ func (c *SlicerClient) makeJSONRequestWithContext(ctx context.Context, method, e
 	return c.httpClient.Do(req)
 }
 
-// GetHostGroups fetches all host groups from the API
+// GetHostGroups fetches all host groups from the API.
 func (c *SlicerClient) GetHostGroups(ctx context.Context) ([]SlicerHostGroup, error) {
 	res, err := c.makeJSONRequestWithContext(ctx, http.MethodGet, "/hostgroup", nil)
 	if err != nil {
@@ -111,7 +111,7 @@ func (c *SlicerClient) GetHostGroups(ctx context.Context) ([]SlicerHostGroup, er
 	return hostGroups, nil
 }
 
-// GetHostGroupNodes fetches nodes for a specific host group
+// GetHostGroupNodes fetches nodes for a specific host group.
 func (c *SlicerClient) GetHostGroupNodes(ctx context.Context, groupName string) ([]SlicerNode, error) {
 	endpoint := fmt.Sprintf("hostgroup/%s/nodes", groupName)
 	res, err := c.makeJSONRequestWithContext(ctx, http.MethodGet, endpoint, nil)
@@ -137,7 +137,7 @@ func (c *SlicerClient) GetHostGroupNodes(ctx context.Context, groupName string) 
 	return nodes, nil
 }
 
-// CreateNode creates a new node in the specified host group
+// CreateNode creates a new node in the specified host group.
 func (c *SlicerClient) CreateNode(ctx context.Context, groupName string, request SlicerCreateNodeRequest) (*SlicerCreateNodeResponse, error) {
 	endpoint := fmt.Sprintf("hostgroup/%s/nodes", groupName)
 	res, err := c.makeJSONRequestWithContext(ctx, http.MethodPost, endpoint, request)
@@ -163,7 +163,7 @@ func (c *SlicerClient) CreateNode(ctx context.Context, groupName string, request
 	return &result, nil
 }
 
-// DeleteNode deletes a node from the specified host group
+// DeleteNode deletes a node from the specified host group.
 func (c *SlicerClient) DeleteNode(groupName, nodeName string) error {
 	endpoint := fmt.Sprintf("hostgroup/%s/nodes/%s", groupName, nodeName)
 	res, err := c.makeJSONRequest(http.MethodDelete, endpoint, nil)
@@ -520,7 +520,7 @@ func (c *SlicerClient) GetVMStats(ctx context.Context, hostname string) ([]Slice
 	return stats, nil
 }
 
-// GetVMLogs fetches logs for a specific VM
+// GetVMLogs fetches logs for a specific VM.
 func (c *SlicerClient) GetVMLogs(ctx context.Context, hostname string, lines int) (*SlicerLogsResponse, error) {
 	u, err := url.Parse(c.baseURL)
 	if err != nil {
@@ -569,7 +569,7 @@ func (c *SlicerClient) GetVMLogs(ctx context.Context, hostname string, lines int
 	return &logsRes, nil
 }
 
-// ListVMs fetches all VMs (nodes)
+// ListVMs fetches all VMs (nodes).
 func (c *SlicerClient) ListVMs(ctx context.Context) ([]SlicerNode, error) {
 	u, err := url.Parse(c.baseURL)
 	if err != nil {
@@ -613,7 +613,7 @@ func (c *SlicerClient) ListVMs(ctx context.Context) ([]SlicerNode, error) {
 	return nodes, nil
 }
 
-// DeleteVM deletes a VM from a host group
+// DeleteVM deletes a VM from a host group.
 func (c *SlicerClient) DeleteVM(ctx context.Context, groupName, hostname string) (*SlicerDeleteResponse, error) {
 	u, err := url.Parse(c.baseURL)
 	if err != nil {
@@ -661,7 +661,7 @@ func (c *SlicerClient) DeleteVM(ctx context.Context, groupName, hostname string)
 	return &delResp, nil
 }
 
-// CreateVM creates a new VM in a host group
+// CreateVM creates a new VM in a host group.
 func (c *SlicerClient) CreateVM(ctx context.Context, groupName string, request SlicerCreateNodeRequest) (*SlicerCreateNodeResponse, error) {
 	u, err := url.Parse(c.baseURL)
 	if err != nil {
