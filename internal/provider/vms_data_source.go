@@ -33,7 +33,7 @@ type VMsDataSource struct {
 type VMsDataSourceModel struct {
 	Filter types.List `tfsdk:"filter"`
 	VMs    types.List `tfsdk:"vms"`
-	Count  types.Int64 `tfsdk:"count"`
+	TotalCount types.Int64 `tfsdk:"total_count"`
 }
 
 // VMsFilterModel describes a filter block.
@@ -98,7 +98,7 @@ func (d *VMsDataSource) Schema(ctx context.Context, req datasource.SchemaRequest
 					},
 				},
 			},
-			"count": schema.Int64Attribute{
+			"total_count": schema.Int64Attribute{
 				Computed:            true,
 				MarkdownDescription: "The number of VMs matching the filter.",
 			},
@@ -235,7 +235,7 @@ func (d *VMsDataSource) Read(ctx context.Context, req datasource.ReadRequest, re
 	resp.Diagnostics.Append(diags...)
 
 	data.VMs = vmsValue
-	data.Count = types.Int64Value(int64(len(filteredVMs)))
+	data.TotalCount = types.Int64Value(int64(len(filteredVMs)))
 
 	tflog.Trace(ctx, "Listed VMs", map[string]interface{}{
 		"count": len(filteredVMs),
